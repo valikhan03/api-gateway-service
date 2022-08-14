@@ -1,0 +1,4 @@
+make: Entering directory '/home/valikhan/projects/auctions-platform/api-gateway-service'
+protoc -I . --go_out=. --go-grpc_out=. pkg/auth/protobuf/auth_service.proto
+make: Leaving directory '/home/valikhan/projects/auctions-platform/api-gateway-service'
+ 
