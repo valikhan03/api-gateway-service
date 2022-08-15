@@ -3,6 +3,7 @@ package routes
 import (
 	"context"
 	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
 
@@ -28,16 +29,14 @@ func SignIn(c *gin.Context, client pb.AuthServiceClient) {
 		return
 	}
 
-	if ok, err := validateToken(res.Token); !ok {
-		c.AbortWithError(http.StatusInternalServerError, err)
-		return
+	//add domain later
+	cookie := http.Cookie{
+		Name: "auth",
+		Value: res.Token,
+		Path: "/api/v1",
+		Expires: time.Now().Add(24 * time.Hour),
+		MaxAge: 60*60*24,
 	}
 
-	c.SetCookie("token_auth", res.Token, 1, "", "", true, true)
-
-	
-}
-
-func validateToken(token string) (bool, error) {
-	return true, nil
+	http.SetCookie(c.Writer, &cookie)
 }
