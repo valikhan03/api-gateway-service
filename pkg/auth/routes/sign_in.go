@@ -24,6 +24,11 @@ func SignIn(c *gin.Context, client pb.AuthServiceClient) {
 
 	res, err := client.SignIn(context.TODO(), &pb.SignInRequest{})
 	if err != nil{
+		c.AbortWithError(http.StatusUnauthorized, err)
+		return
+	}
+
+	if ok, err := validateToken(res.Token); !ok {
 		c.AbortWithError(http.StatusInternalServerError, err)
 		return
 	}
@@ -31,4 +36,8 @@ func SignIn(c *gin.Context, client pb.AuthServiceClient) {
 	c.SetCookie("token_auth", res.Token, 1, "", "", true, true)
 
 	
+}
+
+func validateToken(token string) (bool, error) {
+	return true, nil
 }
