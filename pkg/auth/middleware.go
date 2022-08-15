@@ -17,7 +17,7 @@ func InitAuthMiddleware(srvc *Service) *AuthMiddlewareConfig{
 }
 
 func (a *AuthMiddlewareConfig) AuthRequired(c *gin.Context){
-	token, err := c.Cookie("token_auth")
+	token, err := c.Cookie("auth")
 	if err != nil{
 		c.AbortWithStatus(http.StatusUnauthorized)
 		return
