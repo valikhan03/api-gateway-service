@@ -3,7 +3,6 @@ package routes
 import (
 	"api-gateway-service/pkg/search/pb"
 	"context"
-	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
@@ -13,13 +12,13 @@ import (
 func GetProduct(c *gin.Context, client pb.SearchServiceClient) {
 	id := c.Param("id")
 	if len(id) == 0{
-		c.AbortWithStatus(http.StatusBadRequest)
+		c.AbortWithStatus(400)
 		return
 	}
 
 	res, err := client.GetProduct(context.TODO(), &pb.GetProductInfoRequest{ProductId: id})
 	if err != nil{
-		c.AbortWithError(http.StatusInternalServerError, err)
+		c.AbortWithError(500, err)
 		return
 	}
 

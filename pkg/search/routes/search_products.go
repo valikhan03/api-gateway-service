@@ -20,13 +20,11 @@ func SearchProducts(c *gin.Context, client pb.SearchServiceClient) {
 		return
 	}
 
-	res, err := client.SearchProduct(context.TODO(), &pb.SearchProductsRequest{SearchRequest: req.SearchReq, Page: req.Page})
+	res, err := client.SearchProducts(context.TODO(), &pb.SearchProductsRequest{SearchRequest: req.SearchReq, Page: req.Page})
 	if err != nil{
 		c.AbortWithError(500, err)
 		return
 	}
 
-	c.JSON(200, gin.H{
-		"products":string(res.Products),
-	})
+	c.JSON(int(res.Status), res.Products)
 }

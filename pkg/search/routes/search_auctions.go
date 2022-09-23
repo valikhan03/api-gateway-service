@@ -3,7 +3,6 @@ package routes
 import (
 	"api-gateway-service/pkg/search/pb"
 	"context"
-	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
@@ -17,18 +16,16 @@ func SearchAuctions(c *gin.Context, client pb.SearchServiceClient) {
 	var req SearchAuctionsRequestBody
 	err := c.BindJSON(&req)
 	if err != nil {
-		c.AbortWithError(http.StatusBadRequest, err)
+		c.AbortWithError(400, err)
 		return
 	}
 
 	res, err := client.SearchAuctions(context.TODO(), &pb.SearchAuctionsRequest{SearchRequest: req.SearchReq, Page: req.Page})
 	if err != nil{
-		c.AbortWithError(http.StatusInternalServerError, err)
+		c.AbortWithError(500, err)
 		return
 	}
 	
 
-	c.JSON(200, gin.H{
-		"auctions": string(res.Auctions),	
-	})
+	c.JSON(int(res.Status), res.Auctions)
 }
