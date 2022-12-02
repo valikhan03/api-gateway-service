@@ -1,9 +1,9 @@
-package auth
+package auth_service
 
 import(
 	"github.com/gin-gonic/gin"
 
-	"api-gateway-service/pkg/auth/routes"
+	"api-gateway-service/pkg/auth-service/routes"
 
 )
 
@@ -12,9 +12,9 @@ func RegisterRoutes(r *gin.Engine) *Service{
 		Client: InitServiceClient(),
 	}
 
-	routes := r.Group("auth")
-	routes.POST("/sign-up", service.SignUp)
-	routes.POST("/sign-in", service.SignIn)
+	auth := r.Group("auth")
+	auth.POST("/sign-up", service.SignUp)
+	auth.POST("/sign-in", service.SignIn)
 
 	return service
 }

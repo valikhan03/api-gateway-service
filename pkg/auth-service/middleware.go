@@ -1,7 +1,7 @@
-package auth
+package auth_service
 
 import (
-	"api-gateway-service/pkg/auth/pb"
+	"api-gateway-service/pkg/auth-service/pb"
 	"context"
 	"net/http"
 
@@ -35,6 +35,7 @@ func (a *AuthMiddlewareConfig) AuthRequired(c *gin.Context){
 	}
 
 	c.Set("user_id", res.UserID)
-
+	c.Set("user_email", res.Email)
+	c.Set("user_name", res.FullName)
 	c.Next()
 }

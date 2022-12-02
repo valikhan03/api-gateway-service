@@ -7,7 +7,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"api-gateway-service/pkg/auth/pb"
+	"api-gateway-service/pkg/auth-service/pb"
 )
 
 type SignInRequestBody struct{

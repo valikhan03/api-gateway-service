@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package protobuf;
+
+option go_package="/pkg/auctions-service/pb/auctions_run_service";
+
+
+
+message SuggestPriceRequest {
+    int64 UserID = 1;
+    string ProductID = 2;
+    int64 NewPrice = 3;
+};
+
+message SuggestPriceResponse {
+    int32 status = 1;
+    string Error = 2;
+};
+
+message GetCurrentPriceRequest {
+    string ProductID = 1;
+};
+
+message GetCurrentPriceResponse {
+    string Username =1;
+    string Price = 2;
+};
+
+service RunAuctionsService {
+    rpc SuggestPrice (SuggestPriceRequest) returns (SuggestPriceResponse) {};
+
+    rpc GetCurrentPrice (stream GetCurrentPriceRequest) returns (stream GetCurrentPriceResponse) {};
+}; 

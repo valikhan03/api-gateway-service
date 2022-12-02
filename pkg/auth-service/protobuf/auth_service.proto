@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package protobuf;
 
-option go_package = "/pkg/auth/pb";
+option go_package = "/pkg/auth-service/pb";
 
 
 service AuthService {
@@ -42,9 +42,11 @@ message ValidateRequest {
 };
 
 message ValidateResponse {
-    int32 Status = 1;
-    string Error = 2;
-    int64 UserID = 3;
+    int32   Status = 1;
+    string  Error = 2;
+    int64   UserID = 3;
+    string  FullName = 4;
+    string  Email = 5;
 };
 
 

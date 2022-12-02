@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"api-gateway-service/pkg/search/pb"
+	"api-gateway-service/pkg/search-service/pb"
 	"context"
 
 	"github.com/gin-gonic/gin"

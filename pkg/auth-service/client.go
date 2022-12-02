@@ -1,9 +1,9 @@
-package auth
+package auth_service
 
 import(
 	"google.golang.org/grpc"
 
-	"api-gateway-service/pkg/auth/pb"
+	"api-gateway-service/pkg/auth-service/pb"
 )
 
 type Service struct{

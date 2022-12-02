@@ -1,7 +1,7 @@
 package search
 
 import (
-	"api-gateway-service/pkg/search/pb"
+	"api-gateway-service/pkg/search-service/pb"
 
 	"google.golang.org/grpc"
 )
