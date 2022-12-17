@@ -18,55 +18,55 @@ import (
 // Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
-// RunAuctionsServiceClient is the client API for RunAuctionsService service.
+// AuctionsRunServiceClient is the client API for AuctionsRunService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type RunAuctionsServiceClient interface {
+type AuctionsRunServiceClient interface {
 	SuggestPrice(ctx context.Context, in *SuggestPriceRequest, opts ...grpc.CallOption) (*SuggestPriceResponse, error)
-	GetCurrentPrice(ctx context.Context, opts ...grpc.CallOption) (RunAuctionsService_GetCurrentPriceClient, error)
+	GetCurrentPrice(ctx context.Context, opts ...grpc.CallOption) (AuctionsRunService_GetCurrentPriceClient, error)
 }
 
-type runAuctionsServiceClient struct {
+type auctionsRunServiceClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewRunAuctionsServiceClient(cc grpc.ClientConnInterface) RunAuctionsServiceClient {
-	return &runAuctionsServiceClient{cc}
+func NewAuctionsRunServiceClient(cc grpc.ClientConnInterface) AuctionsRunServiceClient {
+	return &auctionsRunServiceClient{cc}
 }
 
-func (c *runAuctionsServiceClient) SuggestPrice(ctx context.Context, in *SuggestPriceRequest, opts ...grpc.CallOption) (*SuggestPriceResponse, error) {
+func (c *auctionsRunServiceClient) SuggestPrice(ctx context.Context, in *SuggestPriceRequest, opts ...grpc.CallOption) (*SuggestPriceResponse, error) {
 	out := new(SuggestPriceResponse)
-	err := c.cc.Invoke(ctx, "/protobuf.RunAuctionsService/SuggestPrice", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/protobuf.AuctionsRunService/SuggestPrice", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *runAuctionsServiceClient) GetCurrentPrice(ctx context.Context, opts ...grpc.CallOption) (RunAuctionsService_GetCurrentPriceClient, error) {
-	stream, err := c.cc.NewStream(ctx, &RunAuctionsService_ServiceDesc.Streams[0], "/protobuf.RunAuctionsService/GetCurrentPrice", opts...)
+func (c *auctionsRunServiceClient) GetCurrentPrice(ctx context.Context, opts ...grpc.CallOption) (AuctionsRunService_GetCurrentPriceClient, error) {
+	stream, err := c.cc.NewStream(ctx, &AuctionsRunService_ServiceDesc.Streams[0], "/protobuf.AuctionsRunService/GetCurrentPrice", opts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &runAuctionsServiceGetCurrentPriceClient{stream}
+	x := &auctionsRunServiceGetCurrentPriceClient{stream}
 	return x, nil
 }
 
-type RunAuctionsService_GetCurrentPriceClient interface {
+type AuctionsRunService_GetCurrentPriceClient interface {
 	Send(*GetCurrentPriceRequest) error
 	Recv() (*GetCurrentPriceResponse, error)
 	grpc.ClientStream
 }
 
-type runAuctionsServiceGetCurrentPriceClient struct {
+type auctionsRunServiceGetCurrentPriceClient struct {
 	grpc.ClientStream
 }
 
-func (x *runAuctionsServiceGetCurrentPriceClient) Send(m *GetCurrentPriceRequest) error {
+func (x *auctionsRunServiceGetCurrentPriceClient) Send(m *GetCurrentPriceRequest) error {
 	return x.ClientStream.SendMsg(m)
 }
 
-func (x *runAuctionsServiceGetCurrentPriceClient) Recv() (*GetCurrentPriceResponse, error) {
+func (x *auctionsRunServiceGetCurrentPriceClient) Recv() (*GetCurrentPriceResponse, error) {
 	m := new(GetCurrentPriceResponse)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
@@ -74,75 +74,75 @@ func (x *runAuctionsServiceGetCurrentPriceClient) Recv() (*GetCurrentPriceRespon
 	return m, nil
 }
 
-// RunAuctionsServiceServer is the server API for RunAuctionsService service.
-// All implementations must embed UnimplementedRunAuctionsServiceServer
+// AuctionsRunServiceServer is the server API for AuctionsRunService service.
+// All implementations must embed UnimplementedAuctionsRunServiceServer
 // for forward compatibility
-type RunAuctionsServiceServer interface {
+type AuctionsRunServiceServer interface {
 	SuggestPrice(context.Context, *SuggestPriceRequest) (*SuggestPriceResponse, error)
-	GetCurrentPrice(RunAuctionsService_GetCurrentPriceServer) error
-	mustEmbedUnimplementedRunAuctionsServiceServer()
+	GetCurrentPrice(AuctionsRunService_GetCurrentPriceServer) error
+	//mustEmbedUnimplementedAuctionsRunServiceServer()
 }
 
-// UnimplementedRunAuctionsServiceServer must be embedded to have forward compatible implementations.
-type UnimplementedRunAuctionsServiceServer struct {
+// UnimplementedAuctionsRunServiceServer must be embedded to have forward compatible implementations.
+type UnimplementedAuctionsRunServiceServer struct {
 }
 
-func (UnimplementedRunAuctionsServiceServer) SuggestPrice(context.Context, *SuggestPriceRequest) (*SuggestPriceResponse, error) {
+func (UnimplementedAuctionsRunServiceServer) SuggestPrice(context.Context, *SuggestPriceRequest) (*SuggestPriceResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SuggestPrice not implemented")
 }
-func (UnimplementedRunAuctionsServiceServer) GetCurrentPrice(RunAuctionsService_GetCurrentPriceServer) error {
+func (UnimplementedAuctionsRunServiceServer) GetCurrentPrice(AuctionsRunService_GetCurrentPriceServer) error {
 	return status.Errorf(codes.Unimplemented, "method GetCurrentPrice not implemented")
 }
-func (UnimplementedRunAuctionsServiceServer) mustEmbedUnimplementedRunAuctionsServiceServer() {}
+func (UnimplementedAuctionsRunServiceServer) mustEmbedUnimplementedAuctionsRunServiceServer() {}
 
-// UnsafeRunAuctionsServiceServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to RunAuctionsServiceServer will
+// UnsafeAuctionsRunServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to AuctionsRunServiceServer will
 // result in compilation errors.
-type UnsafeRunAuctionsServiceServer interface {
-	mustEmbedUnimplementedRunAuctionsServiceServer()
+type UnsafeAuctionsRunServiceServer interface {
+	mustEmbedUnimplementedAuctionsRunServiceServer()
 }
 
-func RegisterRunAuctionsServiceServer(s grpc.ServiceRegistrar, srv RunAuctionsServiceServer) {
-	s.RegisterService(&RunAuctionsService_ServiceDesc, srv)
+func RegisterAuctionsRunServiceServer(s grpc.ServiceRegistrar, srv AuctionsRunServiceServer) {
+	s.RegisterService(&AuctionsRunService_ServiceDesc, srv)
 }
 
-func _RunAuctionsService_SuggestPrice_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _AuctionsRunService_SuggestPrice_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SuggestPriceRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(RunAuctionsServiceServer).SuggestPrice(ctx, in)
+		return srv.(AuctionsRunServiceServer).SuggestPrice(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/protobuf.RunAuctionsService/SuggestPrice",
+		FullMethod: "/protobuf.AuctionsRunService/SuggestPrice",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RunAuctionsServiceServer).SuggestPrice(ctx, req.(*SuggestPriceRequest))
+		return srv.(AuctionsRunServiceServer).SuggestPrice(ctx, req.(*SuggestPriceRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _RunAuctionsService_GetCurrentPrice_Handler(srv interface{}, stream grpc.ServerStream) error {
-	return srv.(RunAuctionsServiceServer).GetCurrentPrice(&runAuctionsServiceGetCurrentPriceServer{stream})
+func _AuctionsRunService_GetCurrentPrice_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(AuctionsRunServiceServer).GetCurrentPrice(&auctionsRunServiceGetCurrentPriceServer{stream})
 }
 
-type RunAuctionsService_GetCurrentPriceServer interface {
+type AuctionsRunService_GetCurrentPriceServer interface {
 	Send(*GetCurrentPriceResponse) error
 	Recv() (*GetCurrentPriceRequest, error)
 	grpc.ServerStream
 }
 
-type runAuctionsServiceGetCurrentPriceServer struct {
+type auctionsRunServiceGetCurrentPriceServer struct {
 	grpc.ServerStream
 }
 
-func (x *runAuctionsServiceGetCurrentPriceServer) Send(m *GetCurrentPriceResponse) error {
+func (x *auctionsRunServiceGetCurrentPriceServer) Send(m *GetCurrentPriceResponse) error {
 	return x.ServerStream.SendMsg(m)
 }
 
-func (x *runAuctionsServiceGetCurrentPriceServer) Recv() (*GetCurrentPriceRequest, error) {
+func (x *auctionsRunServiceGetCurrentPriceServer) Recv() (*GetCurrentPriceRequest, error) {
 	m := new(GetCurrentPriceRequest)
 	if err := x.ServerStream.RecvMsg(m); err != nil {
 		return nil, err
@@ -150,22 +150,22 @@ func (x *runAuctionsServiceGetCurrentPriceServer) Recv() (*GetCurrentPriceReques
 	return m, nil
 }
 
-// RunAuctionsService_ServiceDesc is the grpc.ServiceDesc for RunAuctionsService service.
+// AuctionsRunService_ServiceDesc is the grpc.ServiceDesc for AuctionsRunService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var RunAuctionsService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "protobuf.RunAuctionsService",
-	HandlerType: (*RunAuctionsServiceServer)(nil),
+var AuctionsRunService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "protobuf.AuctionsRunService",
+	HandlerType: (*AuctionsRunServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "SuggestPrice",
-			Handler:    _RunAuctionsService_SuggestPrice_Handler,
+			Handler:    _AuctionsRunService_SuggestPrice_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{
 		{
 			StreamName:    "GetCurrentPrice",
-			Handler:       _RunAuctionsService_GetCurrentPrice_Handler,
+			Handler:       _AuctionsRunService_GetCurrentPrice_Handler,
 			ServerStreams: true,
 			ClientStreams: true,
 		},

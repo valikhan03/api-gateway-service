@@ -1,0 +1,11 @@
+auth_service:
+  url: 127.0.0.1:8600
+
+auctions_service:
+  url: 127.0.0.1:8500
+
+command_service:
+  url: 127.0.0.1:8300
+
+search_service:
+  url: 127.0.0.1:8400

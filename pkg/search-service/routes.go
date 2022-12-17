@@ -12,12 +12,10 @@ func RegisterRoutes(c *gin.Engine) {
 	}
 
 	c.GET("/auctions/:id", service.GetAuction)
-	c.GET("/products/:id", service.GetProduct) 
+	c.GET("/products/:id", service.GetProduct)
 
-	routes := c.Group("search")
-	routes.POST("")
+	c.POST("/search", service.Search)
 }
-
 
 func (s *Service) GetAuction(c *gin.Context) {
 	routes.GetAuction(c, s.Client)
@@ -27,10 +25,6 @@ func (s *Service) GetProduct(c *gin.Context) {
 	routes.GetProduct(c, s.Client)
 }
 
-func (s *Service) SearchAuctions(c *gin.Context) {
-	routes.SearchAuctions(c, s.Client)
-}
-
-func (s *Service) SearchProducts(c *gin.Context) {
-	routes.SearchProducts(c, s.Client)
+func (s *Service) Search(c *gin.Context) {
+	routes.Search(c, s.Client)
 }

@@ -8,8 +8,9 @@ option go_package="/pkg/auctions-service/pb/auctions_run_service";
 
 message SuggestPriceRequest {
     int64 UserID = 1;
-    string ProductID = 2;
-    int64 NewPrice = 3;
+    string AuctionID = 2;
+    string ProductID = 3;
+    int64 NewPrice = 4;
 };
 
 message SuggestPriceResponse {
@@ -18,15 +19,16 @@ message SuggestPriceResponse {
 };
 
 message GetCurrentPriceRequest {
-    string ProductID = 1;
+    string AuctionID = 1;
+    string ProductID = 2;
 };
 
 message GetCurrentPriceResponse {
-    string Username =1;
+    string Username = 1;
     string Price = 2;
 };
 
-service RunAuctionsService {
+service AuctionsRunService {
     rpc SuggestPrice (SuggestPriceRequest) returns (SuggestPriceResponse) {};
 
     rpc GetCurrentPrice (stream GetCurrentPriceRequest) returns (stream GetCurrentPriceResponse) {};

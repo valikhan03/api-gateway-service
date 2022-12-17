@@ -1,11 +1,10 @@
 package command_service
 
-import(
+import (
 	"github.com/gin-gonic/gin"
-	
+
 	"api-gateway-service/pkg/command-service/routes"
 )
-
 
 func RegisterRoutes(r *gin.Engine) *Service {
 	service := &Service{
@@ -19,7 +18,7 @@ func RegisterRoutes(r *gin.Engine) *Service {
 
 	auctions.POST("/:id/participants", service.AddParticipant)
 	auctions.DELETE("/:id/participants/:participant_id", service.DeleteParticipant)
-	
+
 	auctions.POST("/:id/products", service.AddProduct)
 	auctions.PUT("/:id/products/:product_id", service.UpdateProduct)
 	auctions.DELETE("/:id/products/:product_id", service.DeleteProduct)
@@ -27,12 +26,9 @@ func RegisterRoutes(r *gin.Engine) *Service {
 	return service
 }
 
-
-
 func (s *Service) CreateAuction(c *gin.Context) {
 	routes.CreateAuction(c, s.Client)
 }
-
 
 func (s *Service) UpdateAuction(c *gin.Context) {
 	routes.UpdateAuction(c, s.Client)
@@ -40,7 +36,7 @@ func (s *Service) UpdateAuction(c *gin.Context) {
 
 func (s *Service) DeleteAuction(c *gin.Context) {
 	routes.DeleteAuction(c, s.Client)
-}	
+}
 
 func (s *Service) AddParticipant(c *gin.Context) {
 	routes.AddParticipant(c, s.Client)

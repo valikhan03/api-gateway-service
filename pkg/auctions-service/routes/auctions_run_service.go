@@ -15,7 +15,7 @@ type SuggestPriceReqBody struct {
 	NewPrice  int64  `json:"new_price"`
 }
 
-func SuggestPrice(c *gin.Context, client pb.RunAuctionsServiceClient) {
+func SuggestPrice(c *gin.Context, client pb.AuctionsRunServiceClient) {
 	id, ok := c.Get("user_id")
 	if !ok {
 		c.AbortWithStatus(401)
@@ -50,7 +50,7 @@ var wsupgrader = websocket.Upgrader {
     WriteBufferSize: 1024,
 }
 
-func GetCurrentPrice(c *gin.Context, client pb.RunAuctionsServiceClient) {
+func GetCurrentPrice(c *gin.Context, client pb.AuctionsRunServiceClient) {
 	conn, err := wsupgrader.Upgrade(c.Writer, c.Request, nil)
 	if err != nil {
 		c.AbortWithError(500, err)
