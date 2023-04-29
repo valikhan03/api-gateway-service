@@ -9,13 +9,14 @@ import(
 )
 
 
-func RegisterRoutes(r *gin.Engine) *Service{
+func RegisterRoutes(r *gin.RouterGroup) *Service{
 	service := &Service{
 		ManagementClient: InitManagementServiceClient(),
 		RunClient: InitRunServiceClient(),
 	}
 
 	auctions := r.Group("/auctions")
+
 	
 	auctions.POST("/:id/start", service.StartAuction)
 	auctions.POST("/:id/cancel", service.CancelAuction)

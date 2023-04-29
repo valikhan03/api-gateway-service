@@ -7,5 +7,3 @@ auctions_service:
 command_service:
   url: 127.0.0.1:8300
 
-search_service:
-  url: 127.0.0.1:8400

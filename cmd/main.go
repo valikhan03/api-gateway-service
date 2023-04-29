@@ -4,7 +4,6 @@ import (
 	auctions_srvc "api-gateway-service/pkg/auctions-service"
 	auth_srvc "api-gateway-service/pkg/auth-service"
 	command_srvc "api-gateway-service/pkg/command-service"
-	search_srvc "api-gateway-service/pkg/search-service"
 	"log"
 
 	"github.com/gin-gonic/gin"
@@ -13,11 +12,12 @@ import (
 
 func main() {
 	router := gin.Default()
-
-	auctions_srvc.RegisterRoutes(router)
 	auth_srvc.RegisterRoutes(router)
-	command_srvc.RegisterRoutes(router)
-	search_srvc.RegisterRoutes(router)
+
+
+	services := router.Group("services")
+	auctions_srvc.RegisterRoutes(services)
+	command_srvc.RegisterRoutes(services)
 
 
 	err := router.Run()

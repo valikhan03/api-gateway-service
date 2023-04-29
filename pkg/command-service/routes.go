@@ -6,7 +6,7 @@ import (
 	"api-gateway-service/pkg/command-service/routes"
 )
 
-func RegisterRoutes(r *gin.Engine) *Service {
+func RegisterRoutes(r *gin.RouterGroup) *Service {
 	service := &Service{
 		Client: InitServiceClient(),
 	}
