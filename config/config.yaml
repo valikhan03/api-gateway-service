@@ -7,3 +7,8 @@ auctions_service:
 command_service:
   url: 127.0.0.1:8300
 
+query_service:
+  url: 127.0.0.1:8300
+
+payment_service:
+  url: 127.0.0.1:8020

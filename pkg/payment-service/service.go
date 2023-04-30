@@ -1,4 +1,4 @@
-package query_service
+package payment_service
 
 import (
 	"net/http"
@@ -14,7 +14,7 @@ type Service struct {
 
 func InitService() *Service{
 	return &Service{
-		Host: models.ConfigGlobal.QueryService.URL,
+		Host: models.ConfigGlobal.PaymentService.URL,
 	}
 }
 
