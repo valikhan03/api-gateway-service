@@ -1,11 +1,11 @@
 package main
 
 import (
-	auctions_srvc "api-gateway-service/pkg/auctions-service"
-	auth_srvc "api-gateway-service/pkg/auth-service"
-	command_srvc "api-gateway-service/pkg/command-service"
-	query_srvc "api-gateway-service/pkg/query-service"
-	payment_srvc "api-gateway-service/pkg/payment-service"
+	auctions_service "api-gateway-service/pkg/auctions-service"
+	auth_service "api-gateway-service/pkg/auth-service"
+	command_service "api-gateway-service/pkg/command-service"
+	query_service "api-gateway-service/pkg/query-service"
+	payment_service "api-gateway-service/pkg/payment-service"
 	"log"
 	swaggerFiles "github.com/swaggo/files"
     ginSwagger "github.com/swaggo/gin-swagger"
@@ -19,14 +19,16 @@ func main() {
 
 	router.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
-	auth_srvc.RegisterRoutes(router)
-
+	authService := auth_service.RegisterRoutes(router)
 
 	api := router.Group("/api/v1")
-	auctions_srvc.RegisterRoutes(api)
-	command_srvc.RegisterRoutes(api)
-	query_srvc.RegisterRoutes(api)
-	payment_srvc.RegisterRoutes(api)
+	api.Use(auth_service.InitAuthMiddleware(authService).AuthRequired)
+	auth_service.RegisterRoutes(router)
+
+	auctions_service.RegisterRoutes(api)
+	command_service.RegisterRoutes(api)
+	query_service.RegisterRoutes(api)
+	payment_service.RegisterRoutes(api)
 
 	err := router.Run()
 	if err != nil {
