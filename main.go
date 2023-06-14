@@ -11,10 +11,15 @@ import (
     ginSwagger "github.com/swaggo/gin-swagger"
 
 	"github.com/gin-gonic/gin"
+	"api-gateway-service/pkg/models"
+	"api-gateway-service/pkg/redis"
+
 )
 
 
 func main() {
+	models.InitConfigs()
+	redis.InitRedisConn()
 	router := gin.Default()
 
 	router.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
@@ -23,7 +28,6 @@ func main() {
 
 	api := router.Group("/api/v1")
 	api.Use(auth_service.InitAuthMiddleware(authService).AuthRequired)
-	auth_service.RegisterRoutes(router)
 
 	auctions_service.RegisterRoutes(api)
 	command_service.RegisterRoutes(api)

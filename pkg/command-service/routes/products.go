@@ -28,9 +28,10 @@ func AddProduct(c *gin.Context, client pb.CommandServiceClient) {
 
 	auctionId := c.Param("id")
 
-	res, err := client.AddProduct(ctx, &pb.AddProductRequest{
-		AuctionId: auctionId,
-		Product: &pb.Product{
+	res, err := client.AddLot(ctx, &pb.AddLotRequest{
+		
+		Lot: &pb.Lot{
+			AuctionId: auctionId,
 			Title:       req.Title,
 			Description: req.Description,
 			StartPrice:  req.StartPrice,
@@ -65,9 +66,10 @@ func UpdateProduct(c *gin.Context, client pb.CommandServiceClient) {
 
 	auctionId := c.Param("id")
 
-	res, err := client.UpdateProduct(ctx, &pb.UpdateProductRequest{
-		AuctionId: auctionId,
-		Product: &pb.Product{
+	res, err := client.UpdateLot(ctx, &pb.UpdateLotRequest{
+		//AuctionId: auctionId,
+		Lot: &pb.Lot{
+			AuctionId: auctionId,
 			Title:       req.Title,
 			Description: req.Description,
 			StartPrice:  req.StartPrice,
@@ -88,9 +90,9 @@ func DeleteProduct(c *gin.Context, client pb.CommandServiceClient) {
 	auctionId := c.Param("id")
 	productId := c.Param("product_id")
 
-	res, err := client.DeleteProduct(ctx, &pb.DeletePoductRequest{
+	res, err := client.DeleteLot(ctx, &pb.DeleteLotRequest{
 		AuctionId: auctionId,
-		ProductId: productId,
+		LotId: productId,
 	})
 	if err != nil {
 

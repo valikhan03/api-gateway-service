@@ -13,7 +13,7 @@ type Service struct{
 }
 
 func InitServiceClient() pb.AuthServiceClient{
-	conn, err := grpc.Dial(models.ConfigGlobal.AuthService.URL, grpc.WithInsecure)
+	conn, err := grpc.Dial(models.ConfigGlobal.AuthService.URL, grpc.WithInsecure())
 	if err != nil{
 		log.Fatalf("Auth service connection error: %v", err)
 	}

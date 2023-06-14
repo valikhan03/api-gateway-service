@@ -2,8 +2,13 @@ syntax = "proto3";
 
 package protobuf;
 
-option go_package = "pkg/command-service/pb";
+option go_package = "/pb";
 
+message Attempt_Requirements {
+    int32 approve_required = 1;
+    int32 enter_fee_required = 2;
+    int64 enter_fee_amount = 3;
+};
 
 message Auction {
     string id = 1;
@@ -12,16 +17,30 @@ message Auction {
     int64 organizerID = 4;
     int32 max_participants = 5;
     int32 participants_number = 6;
+    string starts_at = 7;
+    string ends_at = 8;
+    Attempt_Requirements Attempt_Requirements = 9;
+    int32 type = 10;
 };
 
-message Product{
-    int64 id = 1;
+message Lot{
+    int32 id = 1;
     string auction_id = 2;
     string title = 3;
     string description = 4;
     int64 start_price = 5;
-    string category = 6;
-    map<string, string> params = 7;
+    string currency = 6;
+    string category = 7;
+    map<string, string> params = 8;
+};
+
+
+message MediaInfo {
+    string user_id = 1;
+    string auction_id = 2;
+    int32 lot_id = 3;
+    string media_type = 4;
+    string media_name = 5;
 };
 
 message Response {
@@ -45,27 +64,30 @@ message DeleteAuctionRequest {
 
 message AddParticipantRequest {
     string auction_id = 1;
-    string participant_id = 2;
+    int32 participant_id = 2;
 };
 
 message DeleteParticipantRequest {
     string auction_id = 1;
-    string participant_id = 2;
+    int32 participant_id = 2;
 };
 
-message AddProductRequest {
-    string auction_id = 1;
-    Product product = 2;
+message AddLotRequest {
+    Lot lot = 1;
 };
 
-message UpdateProductRequest {
-    string auction_id = 1;
-    Product product = 2;
+message UpdateLotRequest {
+    Lot lot = 1;
 };
 
-message DeletePoductRequest {
+message DeleteLotRequest {
     string auction_id = 1;
-    string product_id = 2;
+    string lot_id = 2;
+};
+
+message UploadMediaRequest {
+    MediaInfo media_info = 1;
+    bytes media_chunk = 2;
 };
 
 
@@ -75,7 +97,8 @@ service CommandService{
     rpc DeleteAuction (DeleteAuctionRequest) returns (Response) {};
     rpc AddParticipant (AddParticipantRequest) returns (Response) {};
     rpc DeleteParticipant (DeleteParticipantRequest) returns (Response) {};
-    rpc AddProduct (AddProductRequest) returns (Response) {};
-    rpc UpdateProduct (UpdateProductRequest) returns (Response) {};
-    rpc DeleteProduct (DeletePoductRequest) returns (Response) {};
+    rpc AddLot (AddLotRequest) returns (Response) {};
+    rpc UpdateLot (UpdateLotRequest) returns (Response) {};
+    rpc DeleteLot (DeleteLotRequest) returns (Response) {};
+    rpc UploadMedia (stream UploadMediaRequest) returns (Response) {};
 };

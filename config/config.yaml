@@ -1,11 +1,11 @@
 auth_service:
-  url: 127.0.0.1:8600
+  url: 127.0.0.1:8840
 
 auctions_service:
   url: 127.0.0.1:8500
 
 command_service:
-  url: 127.0.0.1:8300
+  url: 127.0.0.1:8200
 
 query_service:
   url: 127.0.0.1:8300

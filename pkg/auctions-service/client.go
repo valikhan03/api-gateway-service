@@ -27,7 +27,7 @@ func InitManagementServiceClient() pb_mng_service.AuctionsManagementServiceClien
 
 
 func InitRunServiceClient() pb_run_service.AuctionsRunServiceClient {
-	conn, err := grpc.Dial("", grpc.WithInsecure())
+	conn, err := grpc.Dial(models.ConfigGlobal.AuctionsService.URL, grpc.WithInsecure())
 	if err != nil{
 		log.Fatalf("Run service connection error: %v", err)
 	}

@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package protobuf;
 
-option go_package = "/pkg/auth-service/pb";
+option go_package = "/pb/auth-service";
 
 
 service AuthService {
@@ -35,10 +35,31 @@ message SignInResponse {
     int32 Status = 1;
     string Error = 2; 
     string Token = 3;
+    int32  User_ID = 4;
 };
+
+message AUC_SRVC_DATA {
+    string auction_id = 1;
+    int64 lot_id = 2;
+};
+
+message MNG_SRVC_DATA {
+    string auction_id = 1;
+};
+
+message RUN_SRVC_DATA {
+    string auction_id = 1;
+    int64 lot_id = 2;
+}
 
 message ValidateRequest {
     string Token = 1;
+    string service = 2;
+    oneof SRVC_DATA {
+        AUC_SRVC_DATA AUC_SRVC_DATA = 3;
+        MNG_SRVC_DATA MNG_SRVC_DATA = 4;
+        RUN_SRVC_DATA RUN_SRVC_DATA = 5;
+    }
 };
 
 message ValidateResponse {

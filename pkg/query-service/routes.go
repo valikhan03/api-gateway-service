@@ -7,7 +7,7 @@ import(
 func RegisterRoutes(r *gin.RouterGroup) {
 	service := InitService()
 
-	query_group := r.Group("")
+	query_group := r.Group("/search")
 
 	query_group.GET("/auctions/:id", service.ServeService("/auctions/:id"))
 	query_group.GET("/products/:id", service.ServeService("/products/:id")) 
